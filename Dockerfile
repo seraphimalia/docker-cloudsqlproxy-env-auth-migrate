@@ -21,4 +21,6 @@ RUN chmod +x /usr/local/sbin/startup-check.sh
 
 WORKDIR /usr/local/sbin/
 
+EXPOSE 3306
+
 ENTRYPOINT ["start-proxy.sh"]
