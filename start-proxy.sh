@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 CLOUDSQL_PROXY_VERSION="${CLOUDSQL_PROXY_VERSION:-1.21.0}"
 PORT="${PORT:-3306}"
