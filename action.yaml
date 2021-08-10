@@ -19,7 +19,7 @@ inputs:
   databasePassword:
     description: The password to use when connecting to the database instance
     required: true
-  migrationScriptsLocsation:
+  migrationScriptsLocation:
     description: The path in your repo where your migration scripts live
     required: false
     default: /flyway/sql
@@ -33,4 +33,4 @@ runs:
     DATABASE_USER: ${{ inputs.databaseUser }}
     DATABASE_PASSWORD: ${{ inputs.databasePassword }}
   volumes:
-    - ${{ inputs.migrationScriptsLocsation }}:/flyway/sql
+    - ${{ inputs.migrationScriptsLocation }}:/flyway/sql
