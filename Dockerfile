@@ -1,26 +1,25 @@
-# FROM alpine as certs
-# RUN apk update && apk add ca-certificates
+# use latest flyway
+FROM flyway/flyway
 
-# FROM busybox
-# COPY --from=certs /etc/ssl/certs /etc/ssl/certs
+USER root 
 
-FROM ubuntu:latest
-
-RUN apt -y update
-RUN apt -y install netcat wget
+# install App Engine SDK
+RUN apt-get -y update
+RUN apt-get -y install git netcat wget
 
 RUN mkdir -p /usr/local/sbin/
 RUN wget "https://storage.googleapis.com/cloudsql-proxy/v1.21.0/cloud_sql_proxy.linux.amd64" -O /usr/local/sbin/cloud_sql_proxy
-RUN chmod +x /usr/local/sbin/cloud_sql_proxy
+RUN chmod ug+x /usr/local/sbin/cloud_sql_proxy
+RUN chown flyway:flyway /usr/local/sbin/cloud_sql_proxy
 
-COPY start-proxy.sh /usr/local/sbin/
-RUN chmod +x /usr/local/sbin/start-proxy.sh
+COPY db-migrate.sh /flyway
+COPY startup-check.sh /flyway
 
-COPY startup-check.sh /usr/local/sbin/
-RUN chmod +x /usr/local/sbin/startup-check.sh
+RUN chmod ug+rx db-migrate.sh startup-check.sh
+RUN chown flyway:flyway db-migrate.sh startup-check.sh
 
-WORKDIR /usr/local/sbin/
+WORKDIR /flyway
+# Change to the flyway user
+USER flyway
 
-EXPOSE 3306
-
-ENTRYPOINT ["start-proxy.sh"]
+ENTRYPOINT ["db-migrate.sh"]

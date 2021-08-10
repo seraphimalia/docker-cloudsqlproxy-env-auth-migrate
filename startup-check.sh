@@ -13,8 +13,7 @@ for i in {1..10}; do
   fi
   sleep 2
 done
-# print container logs
-docker logs gce-cloudsql-proxy
+
 # exit with error code if we couldn't connect
 if [[ $isready -ne 0 ]]; then
   exit $isready 
