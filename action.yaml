@@ -32,5 +32,4 @@ runs:
     DATABASE_NAME: ${{ inputs.databaseName }}
     DATABASE_USER: ${{ inputs.databaseUser }}
     DATABASE_PASSWORD: ${{ inputs.databasePassword }}
-  volumes:
-    - ${{ inputs.migrationScriptsLocation }}:/flyway/sql
+    MIGRATION_SQL_PATH: ${{ inputs.migrationScriptsLocation }}
