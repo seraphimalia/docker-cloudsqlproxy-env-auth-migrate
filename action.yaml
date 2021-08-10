@@ -1,0 +1,36 @@
+name: Flyway Migration with CloudSQL Proxy
+description: Migrate database in Github Action via CloudSQL Proxy
+branding:
+  color: red
+  icon: database
+inputs:
+  serviceAccountCreds:
+    description: The JSON key file for the service account to use in GCP (collapsed to a single line)
+    required: true
+  cloudSqlInstance:
+    description: The instance descriptor of the cloud SQL instance containing the database that needs to be migrated
+    required: true
+  databaseName:
+    description: The schema name of the DB being migrated
+    required: true
+  databaseUser:
+    description: The username to use when connecting to the database instance
+    required: true
+  databasePassword:
+    description: The password to use when connecting to the database instance
+    required: true
+  migrationScriptsLocsation:
+    description: The path in your repo where your migration scripts live
+    required: false
+    default: /flyway/sql
+runs:
+  using: docker
+  image: docker://seraphimalia/docker-cloudsqlproxy-env-auth-migrate:latest
+  env:
+    GOOGLE_CLOUDSQL_SERVICE_ACCOUNT: ${{ inputs.serviceAccountCreds }}
+    CLOUDSQL_INSTANCE: ${{ inputs.cloudSqlInstance }}
+    DATABASE_NAME: ${{ inputs.databaseName }}
+    DATABASE_USER: ${{ inputs.databaseUser }}
+    DATABASE_PASSWORD: ${{ inputs.databasePassword }}
+  volumes:
+    - ${{ inputs.migrationScriptsLocsation }}:/flyway/sql
