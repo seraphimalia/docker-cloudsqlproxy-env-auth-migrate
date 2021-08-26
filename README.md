@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Migrate Database
-        uses: seraphimalia/docker-cloudsqlproxy-env-auth-migrate:master
+        uses: therealbluerobot/docker-cloudsqlproxy-env-auth-migrate:master
         with:
           serviceAccountCreds: ${{ secrets.GOOGLE_CLOUDSQL_SERVICE_ACCOUNT }}
           cloudSqlInstance: ${{ env.CLOUDSQL_INSTANCE }}
