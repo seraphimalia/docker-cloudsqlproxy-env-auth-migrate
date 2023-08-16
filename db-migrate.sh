@@ -10,7 +10,7 @@ if [ -e .env ]; then
 fi
 
 if [[ -z "${GOOGLE_CLOUDSQL_SERVICE_ACCOUNT}" || -z "${CLOUDSQL_INSTANCE}" || -z "${DATABASE_NAME}" || -z "${DATABASE_USER}" || -z "${DATABASE_PASSWORD}" ]]; then
-  echo -e "${RED}Missing environment variables. GOOGLE_CLOUDSQL_SERVICE_ACCOUNT CLOUDSQL_INSTANCE, DATABASE_NAME, DATABASE_USER & DATABASE_PASSWORD must exist${NC}"
+  echo -e "${RED}Missing environment variables. GOOGLE_CLOUDSQL_SERVICE_ACCOUNT, CLOUDSQL_INSTANCE, DATABASE_NAME, DATABASE_USER & DATABASE_PASSWORD must exist${NC}"
   exit 1
 fi
 
