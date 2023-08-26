@@ -39,10 +39,10 @@ fi
 
 echo -e "${GREEN}Bringing local database up to date!${NC}"
 
-flyway -locations="filesystem:${MIGRATION_SQL_PATH}" -url=jdbc:mysql://127.0.0.1:3306/$DATABASE_NAME -user="$DATABASE_USER" -password="$DATABASE_PASSWORD" migrate
+flyway -locations="filesystem:${MIGRATION_SQL_PATH}" -url=jdbc:mysql://127.0.0.1:$PORT/$DATABASE_NAME?allowPublicKeyRetrieval=true -user="$DATABASE_USER" -password="$DATABASE_PASSWORD" migrate
 if [ $? -ne 0 ]; then
   echo -e "${RED}DB Migration failed! - Repairing DB after failed migration!${NC}"
-  flyway -locations="filesystem:${MIGRATION_SQL_PATH}" -url=jdbc:mysql://127.0.0.1:3306/$DATABASE_NAME -user="$DATABASE_USER" -password="$DATABASE_PASSWORD" repair
+  flyway -locations="filesystem:${MIGRATION_SQL_PATH}" -url=jdbc:mysql://127.0.0.1:$PORT/$DATABASE_NAME?allowPublicKeyRetrieval=true -user="$DATABASE_USER" -password="$DATABASE_PASSWORD" repair
   kill -9 $CLOUDSQL_PID
   exit 1
 fi
