@@ -25,7 +25,7 @@ inputs:
     default: /flyway/sql
 runs:
   using: docker
-  image: docker://therealbluerobot/docker-cloudsqlproxy-env-auth-migrate:latest
+  image: docker://therealbluerobot/docker-cloudsqlproxy-env-auth-migrate:v2.0.0
   env:
     GOOGLE_CLOUDSQL_SERVICE_ACCOUNT: ${{ inputs.serviceAccountCreds }}
     CLOUDSQL_INSTANCE: ${{ inputs.cloudSqlInstance }}
