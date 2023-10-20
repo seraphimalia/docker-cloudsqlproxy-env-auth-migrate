@@ -16,6 +16,7 @@ fi
 
 MIGRATION_SQL_PATH=${MIGRATION_SQL_PATH:-/flyway/sql}
 PORT=${PORT:-3306}
+SCRIPT_PATH="$(dirname "$(realpath "$0")")"
 
 echo -e "${GREEN}Saving Cloud SQL JSON Key File!${NC}"
 mkdir -p /tmp/gce-cloudsql-proxy
@@ -29,7 +30,7 @@ CLOUDSQL_PID=$!
 echo -e "${GREEN}CloudSQL Started with PID: $CLOUDSQL_PID!${NC}"
 
 echo -e "${GREEN}Waiting for CloudSQL Proxy to listen on port $PORT!${NC}"
-./startup-check.sh
+$SCRIPT_PATH/startup-check.sh
 tail /tmp/output.log
 SUCCESS=$?
 if [[ $SUCCESS -ne 0 ]]; then
